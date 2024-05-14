@@ -21,7 +21,7 @@ public class AdjMatrixUndir extends GraphVertexMapping implements Graph {
             addVertexIndex(vertex);
             ArrayList<Double> newRow = new ArrayList<>();
             int i = 0;
-            int n;
+            int n = 0;
             for(i = 0; i < vertexList.size(); i++) {
                 newRow.add(0.0);
             }

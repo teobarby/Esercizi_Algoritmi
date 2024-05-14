@@ -9,8 +9,6 @@ import upo.graph.base.VisitForest;
 
 public class AdjMatrixUndir extends GraphVertexMapping implements Graph {
 
-    int n;
-
     protected ArrayList<ArrayList<Double>> matrix;
 
     public AdjMatrixUndir() {

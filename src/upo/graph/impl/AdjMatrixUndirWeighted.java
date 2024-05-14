@@ -15,8 +15,8 @@ public class AdjMatrixUndirWeighted extends AdjMatrixUndir implements WeightedGr
     public int addVertexWeighted(Vertex vertex) {
         if(vertex != null && !vertexList.contains(vertex)) {
             addVertexIndex(vertex);
-            ArrayList<Double> newRow = new ArrayList<Double>();
-            int i = 0;
+            ArrayList<Double> newRow = new ArrayList<>();
+            int i;
             for(i = 0; i < vertexList.size(); i++) {
                 newRow.add(0.0);
             }

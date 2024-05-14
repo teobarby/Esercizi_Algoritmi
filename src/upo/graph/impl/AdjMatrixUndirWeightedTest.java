@@ -40,7 +40,6 @@ class AdjMatrixUndirWeightedTest {
         Vertex v1 = Vertex.getVertexByLabel("A");
         Vertex v2 = Vertex.getVertexByLabel("B");
         Vertex v3 = Vertex.getVertexByLabel("C");
-        Vertex v4 = Vertex.getVertexByLabel("D");
 
         graphWeighted.addVertexWeighted(v1);
         graphWeighted.addVertexWeighted(v2);

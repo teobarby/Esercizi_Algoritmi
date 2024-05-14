@@ -20,7 +20,7 @@ public class AdjMatrixUndir extends GraphVertexMapping implements Graph {
         if(vertex != null && !vertexList.contains(vertex)) {
             addVertexIndex(vertex);
             ArrayList<Double> newRow = new ArrayList<>();
-            int i = 0;
+            int i;
             for(i = 0; i < vertexList.size(); i++) {
                 newRow.add(0.0);
             }
@@ -278,15 +278,16 @@ public class AdjMatrixUndir extends GraphVertexMapping implements Graph {
 
     @Override
     public VisitForest getDFSTOTForest(Vertex[] vertexOrdering)
-            throws UnsupportedOperationException, IllegalArgumentException {;
+            throws UnsupportedOperationException, IllegalArgumentException {
 
+        VisitForest visitForest = new VisitForest(this, VisitForest.VisitType.DFS);
         for(Vertex vertex : vertexOrdering) {
-            VisitForest visitForest = getDFSTree(vertex);
+            visitForest = getDFSTree(vertex);
             if(visitForest.getColor(vertex) == VisitForest.Color.WHITE) {
                 visitForest = getDFSTree(vertex, visitForest);
             }
         }
-        return null;
+        return visitForest;
     }
 
     @Override
@@ -307,7 +308,7 @@ public class AdjMatrixUndir extends GraphVertexMapping implements Graph {
         for (Vertex element : vertexList)
             if (visit.getColor(element) == VisitForest.Color.WHITE)
                 toAdd.add(element);
-                componentsList.add(toAdd);
+        componentsList.add(toAdd);
         return componentsList;
     }
 }

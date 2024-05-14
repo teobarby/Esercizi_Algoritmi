@@ -432,7 +432,7 @@ class AdjMatrixUndirTest {
         graph.addEdge(Edge.getEdgeByVertexes(v3, v4));
         graph.addEdge(Edge.getEdgeByVertexes(v4, v1));
 
-        VisitForest visitForest = graph.getDFSTree(v1);
+        VisitForest visitForest = graph.getDFSTOTForest(v1);
 
         for(Vertex vertex : graph.getVertices()) {
             assertEquals(VisitForest.Color.BLACK, visitForest.getColor(vertex));
@@ -481,7 +481,7 @@ class AdjMatrixUndirTest {
         graph.addEdge(Edge.getEdgeByVertexes(v3, v4));
         graph.addEdge(Edge.getEdgeByVertexes(v4, v1));
 
-        VisitForest visitForest = graph.getDFSTree(v1);
+        VisitForest visitForest = graph.getDFSTOTForest(v1);
 
         for(Vertex vertex : graph.getVertices()) {
             assertEquals(VisitForest.Color.BLACK, visitForest.getColor(vertex));

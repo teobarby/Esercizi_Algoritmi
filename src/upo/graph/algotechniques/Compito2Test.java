@@ -1,6 +1,7 @@
 package upo.graph.algotechniques;
 
 import org.junit.Test;
+import upo.graph.base.Vertex;
 
 import java.util.Arrays;
 
@@ -24,21 +25,18 @@ public class Compito2Test {
 
     @Test
     public void testLongestCommonSubsequence() {
-        // Test case 1
         String s1 = "AGGTAB";
         String s2 = "GXTXAYB";
         String expected1 = "GTAB";
         String result1 = LongestCommonSubsequence(s1, s2);
         assertEquals(expected1, result1);
 
-        // Test case 3
         String s5 = "XMJYAUZ";
         String s6 = "MZJAWXU";
         String expected3 = "MJAU";
         String result3 = LongestCommonSubsequence(s5, s6);
         assertEquals(expected3, result3);
 
-        // Test case 4
         String s7 = "ABC";
         String s8 = "AC";
         String expected4 = "AC";
@@ -47,7 +45,13 @@ public class Compito2Test {
     }
 
 
+    @Test
+    public void testApproxTSP() {
 
+        Vertex v1 = Vertex.getVertexByLabel("1");
+        Vertex v2 = Vertex.getVertexByLabel("2");
+        Vertex v3 = Vertex.getVertexByLabel("3");
+        Vertex v4 = Vertex.getVertexByLabel("4");
 
-
+    }
 }

@@ -1,13 +1,15 @@
 package upo.graph.algotechniques;
 
-import upo.graph.base.Graph;
-import upo.graph.base.Edge;
-import upo.graph.base.Vertex;
-import upo.graph.base.WeightedGraph;
+import upo.graph.base.*;
 
 import java.util.*;
+import upo.graph.base.Edge;
+import upo.graph.base.Graph;
+import upo.graph.base.Vertex;
+import upo.graph.base.VisitForest;
+import upo.graph.impl.GraphVertexMapping;
 
-public class Approximate {
+public class Approximate extends GraphVertexMapping {
 
     /** Calcola un ciclo Hamiltoniano di peso al più 2 volte quello di un ciclo Hamiltoniano minimi
      * utilizzando l'algoritmo <strong>approssimato</strong> visto a lezione.
@@ -16,70 +18,25 @@ public class Approximate {
      * @return una lista di vertici che rappresenta il ciclo Hamiltoniano calcolato (es. <A, D, C, A>)
      * @throws IllegalArgumentException nel caso in cui il grafo non sia completo o sia orientato (evitate,
      * per semplicità, di verificare la disuguaglianza triangolare su tutte le coppie di archi)
-     */
+
     public static List<Vertex> approxTSP(WeightedGraph graph) throws IllegalArgumentException {
-        // Check if the graph is complete and undirected
-        Set<Vertex> vertices = graph.getVertices();
-        for (Vertex v : vertices) {
-            if (graph.getEdges(v).size() != vertices.size() - 1) {
-                throw new IllegalArgumentException("Graph is not complete");
-            }
+
+        if (graph.isDirected()) {
+            throw new IllegalArgumentException("Il grafo è orientato");
         }
 
-        // Step 1: Create a Minimum Spanning Tree (MST) using Prim's algorithm
-        Set<Vertex> mstSet = new HashSet<>();
-        List<Edge> mstEdges = new ArrayList<>();
-        PriorityQueue<Edge> edgeQueue = new PriorityQueue<>(Comparator.comparingInt(e -> e.weight));
+        Set<Edge> mstEdges = prim(graph);
 
-        Vertex start = vertices.iterator().next();
-        mstSet.add(start);
-        edgeQueue.addAll(graph.getEdges(start));
+        Graph mst = graphCreate(mstEdges, graph.getVertices());
 
-        while (mstSet.size() < vertices.size()) {
-            Edge edge = edgeQueue.poll();
-            if (edge == null) break;
+        List<Vertex> preOrder = preOrderTraversal(mst, graph.getVertices().iterator().next());
 
-            Vertex newVertex = null;
-            if (!mstSet.contains(edge.getSource())) {
-                newVertex = edge.getSource();
-            } else if (!mstSet.contains(edge.destination)) {
-                newVertex = edge.destination;
-            }
+        List<Vertex> hamiltonianCycle = new ArrayList<>(preOrder);
+        hamiltonianCycle.add(preOrder.get(0));
 
-            if (newVertex != null) {
-                mstSet.add(newVertex);
-                mstEdges.add(edge);
-                for (Edge e : graph.getEdges(newVertex)) {
-                    if (!mstSet.contains(e.getOther(newVertex))) {
-                        edgeQueue.add(e);
-                    }
-                }
-            }
-        }
-
-        // Step 2: Perform a preorder traversal of the MST to get a Hamiltonian circuit
-        List<Vertex> tspPath = new ArrayList<>();
-        Set<Vertex> visited = new HashSet<>();
-        Stack<Vertex> stack = new Stack<>();
-        stack.push(start);
-
-        while (!stack.isEmpty()) {
-            Vertex current = stack.pop();
-            if (!visited.contains(current)) {
-                visited.add(current);
-                tspPath.add(current);
-                for (Edge e : graph.getEdges(current)) {
-                    Vertex next = e.getOther(current);
-                    if (!visited.contains(next)) {
-                        stack.push(next);
-                    }
-                }
-            }
-        }
-        tspPath.add(start); // Make it a cycle by adding the start vertex at the end
-
-        return tspPath;
+        return hamiltonianCycle;
     }
+    */
 
     /** Calcola un ciclo Hamiltoniano utilizzando l'algoritmo <strong>di ricerca locale</strong> visto a
      * lezione (k scambi, con k = 2).
